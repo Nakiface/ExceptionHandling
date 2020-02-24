@@ -23,7 +23,7 @@ namespace ConsoleAppD
 
             
             dbConn = new SqlConnection(
-                    "Data Source=192.168.95.186;Initial Catalog=ExD_01;User ID=ExD_01;Password=pExD_01");
+                    "Data Source=192.168.95.186;Initial Catalog=FAC91_11; User ID=FAC91_11;Password=pFAC91_11");
             dbConn.Open();
             
             do
@@ -36,7 +36,7 @@ namespace ConsoleAppD
                     {
                         case "r":
                             //run command
-                            SqlCommand command = new SqlCommand("SELECT * FROM ExD_01.db_ddladmin.Person2", dbConn);
+                            SqlCommand command = new SqlCommand("SELECT * FROM versandhandel.T_Artikel", dbConn);
                             reader = command.ExecuteReader();
                             while (reader.Read())
                             {
