@@ -45,6 +45,7 @@ namespace ConsoleAppD
                                     Console.WriteLine("{0} - {2}, {1}", reader["p_nr"], reader["vname"],
                                         reader["nname"]); // etc
                                 }
+                                reader.Close();
 
                                 break;
                             case "w":
