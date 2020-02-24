@@ -88,7 +88,12 @@ namespace ConsoleAppD
                     }
                     catch (FormatException e)
                     {
-                        Console.WriteLine("An error occured while parsing input to number. Please try again.");
+                        Console.WriteLine("The number you entered was invalid. Please try again.");
+                        Console.WriteLine(e.Message);
+                    }
+                    catch (OverflowException e)
+                    {
+                        Console.WriteLine("The number you entered was too big. Please try again.");
                         Console.WriteLine(e.Message);
                     }
                 } while (op != "x");
