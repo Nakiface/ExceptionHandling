@@ -100,6 +100,7 @@ namespace ConsoleAppD
                     finally
                     {
                         reader?.Close();
+                        reader = null;
                     }
                 } while (op != "x");
             }
