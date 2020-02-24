@@ -17,7 +17,7 @@ namespace ConsoleAppD
             SqlDataReader dr = null;
             SqlCommand sqlCmd = null;
             SqlDataReader reader = null;
-            int personNr = 0;
+            int personNr;
 
             string op = "", vorname, nachname;
 
@@ -35,7 +35,7 @@ namespace ConsoleAppD
                     {
                         case "r":
                             //run command
-                            SqlCommand command = new SqlCommand("SELECT * FROM versandhandel.T_Person", dbConn);
+                            SqlCommand command = new SqlCommand("SELECT * FROM versandhandel.T_Personen", dbConn);
                             reader = command.ExecuteReader();
                             while (reader.Read())
                             {
@@ -45,23 +45,15 @@ namespace ConsoleAppD
 
                             break;
                         case "w":
-                            try
-                            {
-                                Console.Write("Eingabe Nummer: ");
-                                personNr = Convert.ToInt32(Console.ReadLine());
-                            }
-                            catch(Exception e)
-                            {
-                                Console.WriteLine(e.Message);
-                                break;
-                            }
-
+                            Console.Write("Eingabe Nummer: ");
+                            personNr = Convert.ToInt32(Console.ReadLine());
                             Console.Write("Eingabe Vorname: ");
                             vorname = Console.ReadLine();
                             Console.Write("Eingabe Nachname: ");
                             nachname = Console.ReadLine();
                             sqlCmd = new SqlCommand(
-                                "INSERT INTO versandhandel.T_Person (p_nr, vname, nname) VALUES(@p_nr, @vname, @nname);",dbConn);
+                                "INSERT INTO ExD_01.db_ddladmin.Person2 (p_nr, vname, nname) VALUES(@p_nr, @vname, @nname);",
+                                dbConn);
                             sqlCmd.Parameters.AddWithValue("@p_nr", personNr);
                             sqlCmd.Parameters.AddWithValue("@vname", vorname);
                             sqlCmd.Parameters.AddWithValue("@nname", nachname);
