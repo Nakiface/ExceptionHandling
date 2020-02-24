@@ -35,7 +35,7 @@ namespace ConsoleAppD
                     {
                         case "r":
                             //run command
-                            SqlCommand command = new SqlCommand("SELECT * FROM versandhandel.T_Personen", dbConn);
+                            SqlCommand command = new SqlCommand("SELECT * FROM versandhandel.T_Person", dbConn);
                             reader = command.ExecuteReader();
                             while (reader.Read())
                             {
