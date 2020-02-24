@@ -35,12 +35,20 @@ namespace ConsoleAppD
                     {
                         case "r":
                             //run command
-                            SqlCommand command = new SqlCommand("SELECT * FROM versandhandel.T_Person", dbConn);
-                            reader = command.ExecuteReader();
-                            while (reader.Read())
+                            try
                             {
-                                Console.WriteLine("{0} - {2}, {1}", reader["p_nr"], reader["vname"],
-                                    reader["nname"]); // etc
+                                SqlCommand command = new SqlCommand("SELECT * FROM versandhandfgesrgdel.T_Person", dbConn);
+                                reader = command.ExecuteReader();
+                                while (reader.Read())
+                                {
+                                    Console.WriteLine("{0} - {2}, {1}", reader["p_nr"], reader["vname"],
+                                        reader["nname"]); // etc
+                                }
+                            }
+                            catch (SqlException e)
+                            {
+                                Console.WriteLine("An error occured:");
+                                Console.WriteLine(e.Message); 
                             }
 
                             break;
@@ -52,7 +60,7 @@ namespace ConsoleAppD
                             Console.Write("Eingabe Nachname: ");
                             nachname = Console.ReadLine();
                             sqlCmd = new SqlCommand(
-                                "INSERT INTO ExD_01.db_ddladmin.Person2 (p_nr, vname, nname) VALUES(@p_nr, @vname, @nname);",
+                                "INSERT INTO versandhandel.T_Person (p_nr, vname, nname) VALUES(@p_nr, @vname, @nname);",
                                 dbConn);
                             sqlCmd.Parameters.AddWithValue("@p_nr", personNr);
                             sqlCmd.Parameters.AddWithValue("@vname", vorname);
@@ -63,7 +71,7 @@ namespace ConsoleAppD
                         case "d":
                             Console.Write("Welche Person soll gelöscht werden (Nr.): ");
                             personNr = Convert.ToInt32(Console.ReadLine());
-                            sqlCmd = new SqlCommand("DELETE FROM ExD_01.db_ddladmin.Person2 WHERE p_nr = @p_nr;",
+                            sqlCmd = new SqlCommand("DELETE FROM versandhandel.T_Person WHERE p_nr = @p_nr;",
                                 dbConn);
                             sqlCmd.Parameters.AddWithValue("@p_nr", personNr);
                             sqlCmd.ExecuteNonQuery();
