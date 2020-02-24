@@ -17,7 +17,7 @@ namespace ConsoleAppD
             SqlDataReader dr = null;
             SqlCommand sqlCmd = null;
             SqlDataReader reader = null;
-            int personNr;
+            int personNr = 0;
 
             string op = "", vorname, nachname;
 
@@ -45,8 +45,15 @@ namespace ConsoleAppD
 
                             break;
                         case "w":
-                            Console.Write("Eingabe Nummer: ");
-                            personNr = Convert.ToInt32(Console.ReadLine());
+                            try
+                            {
+                                Console.Write("Eingabe Nummer: ");
+                                personNr = Convert.ToInt32(Console.ReadLine());
+                            } catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                                break;
+                            }
                             Console.Write("Eingabe Vorname: ");
                             vorname = Console.ReadLine();
                             Console.Write("Eingabe Nachname: ");
