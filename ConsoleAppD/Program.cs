@@ -112,6 +112,7 @@ namespace ConsoleAppD
             finally
             {
                 dbConn.Close();
+                dbConn = null;
             }
         }
     }
