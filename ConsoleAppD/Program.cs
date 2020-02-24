@@ -23,7 +23,8 @@ namespace ConsoleAppD
 
             try
             {
-                dbConn = new SqlConnection("Data Source=fbit-mssql.oszimt.local;Initial Catalog=FAC91_11;User ID=FAC91_11;Password=pFAC91_11");
+                dbConn = new SqlConnection(
+                    "Data Source=fbit-mssql.oszimt.local;Initial Catalog=FAC91_11;User ID=FAC91_11;Password=pFAC91_11");
                 dbConn.Open();
                 Console.WriteLine("Database connection successful.");
                 do
@@ -45,7 +46,6 @@ namespace ConsoleAppD
                                     Console.WriteLine("{0} - {2}, {1}", reader["p_nr"], reader["vname"],
                                         reader["nname"]); // etc
                                 }
-                                reader.Close();
 
                                 break;
                             case "w":
@@ -97,12 +97,19 @@ namespace ConsoleAppD
                         Console.WriteLine("The number you entered was too big. Please try again.");
                         Console.WriteLine(e.Message);
                     }
+                    finally
+                    {
+                        reader?.Close();
+                    }
                 } while (op != "x");
             }
             catch (SqlException e)
             {
-                Console.WriteLine("An error occured:");
+                Console.WriteLine("An error occured while connection to Database.");
                 Console.WriteLine(e.Message);
+            }
+            finally
+            {
                 dbConn.Close();
             }
         }
