@@ -21,14 +21,13 @@ namespace ConsoleAppD
 
             string op = "", vorname, nachname;
 
-            
-            dbConn = new SqlConnection(
-                    "Data Source=192.168.95.186;Initial Catalog=FAC91_11; User ID=FAC91_11;Password=pFAC91_11");
-            dbConn.Open();
-            
-            do
+            try
             {
-                
+                dbConn = new SqlConnection("Data Source=fbit-mssql.oszimt.local;Initial Catalog=FAC91_11;User ID=FAC91_11;Password=pFAC91_11");
+                dbConn.Open();
+                Console.WriteLine("Database connection successful.");
+                do
+                {
                     Console.Write("Daten lesen (r), Daten schreiben (w), Daten löschen (d), Beenden (x): ");
                     op = Console.ReadLine();
 
@@ -36,7 +35,7 @@ namespace ConsoleAppD
                     {
                         case "r":
                             //run command
-                            SqlCommand command = new SqlCommand("SELECT * FROM versandhandel.T_Artikel", dbConn);
+                            SqlCommand command = new SqlCommand("SELECT * FROM versandhandel.T_Personen", dbConn);
                             reader = command.ExecuteReader();
                             while (reader.Read())
                             {
@@ -78,10 +77,13 @@ namespace ConsoleAppD
                             Console.WriteLine("Operation '{0}' nicht definiert!", op);
                             break;
                     }
-                
-                
-                
-            } while (op != "x");
+                } while (op != "x");
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("An error occured:");
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
